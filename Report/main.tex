@@ -1,6 +1,6 @@
 \documentclass[a4paper]{article}
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
@@ -21,6 +21,10 @@
 \usepackage{cleveref}
 \usepackage{todonotes}
 
+\renewcommand\thesubsection{Problem \thesection\alph{subsection}}
+
+
+
 \title{Linear Systems TTK4115 - Boat lab}
 \author{
   Alex Danielsen-Haces -- 764088 \and
@@ -38,8 +42,7 @@
     \includegraphics[width=0.5\textwidth]{images/logontnu_eng}
     \end{figure}
     \thispagestyle{empty}
-\end{titlepage}
-
+\end{titlepage} 
 %\section*{Table of contents}
 \tableofcontents
 \thispagestyle{empty} %Avoid page numbering on the table of contents
