@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.24"
+    ComputedModelVersion    "1.26"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "alexada"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 02 11:35:03 2016"
-  RTWModifiedTimeStamp	  399987300
-  ModelVersionFormat	  "1.%<AutoIncrement:24>"
+  LastModifiedDate	  "Wed Nov 02 12:57:15 2016"
+  RTWModifiedTimeStamp	  399992234
+  ModelVersionFormat	  "1.%<AutoIncrement:26>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -886,6 +886,15 @@ Model {
       VectorParams1D	      on
     }
     Block {
+      BlockType		      Step
+      Time		      "1"
+      Before		      "0"
+      After		      "1"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+      ZeroCross		      on
+    }
+    Block {
       BlockType		      SubSystem
       ShowPortLabels	      "FromPortIcon"
       Permissions	      "ReadWrite"
@@ -961,7 +970,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "33"
+    SIDHighWatermark	    "35"
     Block {
       BlockType		      SubSystem
       Name		      "Cargo ship"
@@ -987,7 +996,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "noise"
 	    Prompt		    "measurement noise"
-	    Value		    "on"
+	    Value		    "off"
 	  }
 	  Object {
 	    $ObjectID		    21
@@ -1001,7 +1010,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "logic"
 	    Prompt		    "waves"
-	    Value		    "on"
+	    Value		    "off"
 	  }
 	  PropName		  "Parameters"
 	}
@@ -1513,10 +1522,10 @@ Model {
       SourceBlock	      "simulink/Sinks/XY Graph"
       SourceType	      "XY scope."
       ContentPreviewEnabled   off
-      xmin		      "-50000"
-      xmax		      "50000"
-      ymin		      "-50000"
-      ymax		      "50000"
+      xmin		      "-1000"
+      xmax		      "6000"
+      ymin		      "-5000"
+      ymax		      "5000"
       st		      "-1"
     }
     Block {
@@ -1527,7 +1536,7 @@ Model {
       Position		      [505, 149, 535, 181]
       ZOrder		      -3
       Floating		      off
-      Location		      [756, 332, 1525, 886]
+      Location		      [776, 272, 1545, 826]
       Open		      on
       NumInputPorts	      "1"
       List {
@@ -1544,7 +1553,7 @@ Model {
 	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
 	MarkerStyles		"none|none|none|none|none|none"
       }
-      YMin		      "0"
+      YMin		      "5"
       YMax		      "70"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
@@ -1552,11 +1561,20 @@ Model {
     Block {
       BlockType		      Sin
       Name		      "Sine Wave"
-      SID		      "31"
+      SID		      "35"
       Ports		      [0, 1]
-      Position		      [210, 195, 240, 225]
-      ZOrder		      1
-      Frequency		      "omega"
+      Position		      [205, 125, 235, 155]
+      ZOrder		      5
+      Frequency		      ".005"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "34"
+      Position		      [205, 195, 235, 225]
+      ZOrder		      4
+      Time		      "0"
       SampleTime	      "0"
     }
     Block {
@@ -1606,8 +1624,8 @@ Model {
       }
     }
     Line {
-      ZOrder		      4
-      SrcBlock		      "Sine Wave"
+      ZOrder		      15
+      SrcBlock		      "Step"
       SrcPort		      1
       DstBlock		      "Cargo ship"
       DstPort		      1
