@@ -1,5 +1,5 @@
 \section{Identification of the boat parameters}
-\subsection{}
+\subsection{Problem a}
 Using the following state equations in the problem description \todo{add reference and cite},
 
 \begin{align*}
@@ -8,7 +8,8 @@ Using the following state equations in the problem description \todo{add referen
     \dot{b} &= w_b
 \end{align*}
 
-It is shown that $\dot{r} = \ddot{\psi}$ and assuming no disturbances and that b starts at 0, b will always equal 0 since $\dot{b}$ = 0. Therefore:
+It is shown that $\dot{r} = \ddot{\psi}$ and assuming no disturbances and that b starts at 0, b will
+always equal 0 since $\dot{b}$ = 0. Therefore:
 
 \begin{align*}
     \ddot{\psi} &= -\frac{1}{T}*\psi + \frac{K}{T}\delta \\
@@ -21,8 +22,11 @@ Rearranging this leads to:
     H(s) = \frac{\Psi(s)}{\Delta(s)} = \frac{K}{Ts^2 + s}
 \end{equation}
 
-\subsection{}
-In order to measure the Nomoto time and gain constants T and K, the model is run with input sine waves of amplitude one and frequencies $\omega = 0.005$ and $\omega = 0.05$. The amplitude of the output sine waves are measured and these values correspond to $H(j\omega)$. This produces the following two equations:
+\subsection{Problem b}
+In order to measure the Nomoto time and gain constants T and K, the model is run with input sine waves
+of amplitude one and frequencies $\omega = 0.005$ and $\omega = 0.05$. The amplitude of the output sine
+waves are measured and these values correspond to $H(j\omega)$. This produces the following two
+equations:
 
 \begin{align*}
     H(0.005j) &= \left|\frac{K}{T(0.005j)^2 + 0.005j}\right| = 63.9575 \\
@@ -36,9 +40,12 @@ Rearranging the equations results in the following values for T and K:
     K &= 0.173945
 \end{align*}
 
-\subsection{}
-It is far more difficult to get good estimates of the boat parameters with waves and measurement noise turned on. While easier with a lower frequency of the input signal, the accuracy of the estimates is not satisfactory. With more samples it would be possible to average the results and get better estimates for T and K. 
+\subsection{Problem c}
+It is far more difficult to get good estimates of the boat parameters with waves and measurement noise
+turned on. While easier with a lower frequency of the input signal, the accuracy of the estimates is not
+satisfactory. With more samples it would be possible to average the results and get better estimates for
+T and K. 
 
-\subsection{}
+\subsection{Problem d}
 "Is the model a good approximation?"
 The model closely follows the simulated physical system, and is thus a good approximation.
