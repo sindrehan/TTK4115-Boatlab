@@ -1,5 +1,5 @@
 Model {
-  Name			  "ship_p1b"
+  Name			  "ship_p1c"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.29"
+    ComputedModelVersion    "1.27"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1056.0]
+      Location		      [-8.0, 0.0, 1936.0, 1056.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 19:27:32 2016"
-  RTWModifiedTimeStamp	  400620452
-  ModelVersionFormat	  "1.%<AutoIncrement:29>"
+  LastModifiedDate	  "Wed Nov 09 19:32:06 2016"
+  RTWModifiedTimeStamp	  400620671
+  ModelVersionFormat	  "1.%<AutoIncrement:27>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ship_p1b"
+    model_		    "ship_p1c"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ship_p1b"
+      Cell		      "ship_p1c"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -926,8 +926,8 @@ Model {
     }
   }
   System {
-    Name		    "ship_p1b"
-    Location		    [-8, -8, 1928, 1048]
+    Name		    "ship_p1c"
+    Location		    [-8, 0, 1928, 1056]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -967,7 +967,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "noise"
 	    Prompt		    "measurement noise"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  Object {
 	    $ObjectID		    21
@@ -981,14 +981,14 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "logic"
 	    Prompt		    "waves"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  PropName		  "Parameters"
 	}
       }
       System {
 	Name			"Cargo ship"
-	Location		[-8, -8, 1928, 1048]
+	Location		[83, 52, 1532, 1196]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1487,7 +1487,7 @@ Model {
       Name		      "Sine Wave"
       SID		      "35"
       Ports		      [0, 1]
-      Position		      [235, 195, 265, 225]
+      Position		      [220, 195, 250, 225]
       ZOrder		      5
       Frequency		      "omega"
       SampleTime	      "0"

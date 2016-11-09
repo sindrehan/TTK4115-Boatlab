@@ -1,5 +1,5 @@
 Model {
-  Name			  "ship_p1b"
+  Name			  "ship_p1d"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.29"
+    ComputedModelVersion    "1.28"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1056.0]
+      Location		      [-8.0, 0.0, 1936.0, 1056.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 19:27:32 2016"
-  RTWModifiedTimeStamp	  400620452
-  ModelVersionFormat	  "1.%<AutoIncrement:29>"
+  LastModifiedDate	  "Wed Nov 09 19:36:07 2016"
+  RTWModifiedTimeStamp	  400620967
+  ModelVersionFormat	  "1.%<AutoIncrement:28>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ship_p1b"
+    model_		    "ship_p1d"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ship_p1b"
+      Cell		      "ship_p1d"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -181,7 +181,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.15.0"
 	  StartTime		  "0.0"
-	  StopTime		  "3000"
+	  StopTime		  "500"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -853,17 +853,13 @@ Model {
       RndMeth		      "Floor"
     }
     Block {
-      BlockType		      Sin
-      SineType		      "Time based"
-      TimeSource	      "Use simulation time"
-      Amplitude		      "1"
-      Bias		      "0"
-      Frequency		      "1"
-      Phase		      "0"
-      Samples		      "10"
-      Offset		      "0"
+      BlockType		      Step
+      Time		      "1"
+      Before		      "0"
+      After		      "1"
       SampleTime	      "-1"
       VectorParams1D	      on
+      ZeroCross		      on
     }
     Block {
       BlockType		      SubSystem
@@ -926,8 +922,8 @@ Model {
     }
   }
   System {
-    Name		    "ship_p1b"
-    Location		    [-8, -8, 1928, 1048]
+    Name		    "ship_p1d"
+    Location		    [-8, 0, 1928, 1056]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -988,7 +984,7 @@ Model {
       }
       System {
 	Name			"Cargo ship"
-	Location		[-8, -8, 1928, 1048]
+	Location		[83, 52, 1532, 1196]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1483,13 +1479,12 @@ Model {
       }
     }
     Block {
-      BlockType		      Sin
-      Name		      "Sine Wave"
-      SID		      "35"
-      Ports		      [0, 1]
-      Position		      [235, 195, 265, 225]
-      ZOrder		      5
-      Frequency		      "omega"
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "34"
+      Position		      [205, 195, 235, 225]
+      ZOrder		      4
+      Time		      "0"
       SampleTime	      "0"
     }
     Block {
@@ -1497,7 +1492,7 @@ Model {
       Name		      "To Workspace"
       SID		      "32"
       Ports		      [1]
-      Position		      [475, 175, 535, 205]
+      Position		      [460, 175, 520, 205]
       ZOrder		      2
       ShowName		      off
       VariableName	      "compass"
@@ -1515,8 +1510,8 @@ Model {
       DstPort		      1
     }
     Line {
-      ZOrder		      16
-      SrcBlock		      "Sine Wave"
+      ZOrder		      15
+      SrcBlock		      "Step"
       SrcPort		      1
       DstBlock		      "Cargo ship"
       DstPort		      1
