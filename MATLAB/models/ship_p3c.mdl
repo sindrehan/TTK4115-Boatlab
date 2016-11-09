@@ -1,5 +1,5 @@
 Model {
-  Name			  "ship_p3b"
+  Name			  "ship_p3c"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -65,8 +65,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 21:01:09 2016"
-  RTWModifiedTimeStamp	  400626041
+  LastModifiedDate	  "Wed Nov 09 21:01:35 2016"
+  RTWModifiedTimeStamp	  400626090
   ModelVersionFormat	  "1.%<AutoIncrement:41>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ship_p3b"
+    model_		    "ship_p3c"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ship_p3b"
+      Cell		      "ship_p3c"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -921,7 +921,7 @@ Model {
     }
   }
   System {
-    Name		    "ship_p3b"
+    Name		    "ship_p3c"
     Location		    [-8, 0, 1378, 788]
     Open		    on
     ModelBrowserVisibility  off
@@ -983,7 +983,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "current"
 	    Prompt		    "current"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  Object {
 	    $ObjectID		    22

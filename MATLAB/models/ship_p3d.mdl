@@ -1,5 +1,5 @@
 Model {
-  Name			  "ship_p3b"
+  Name			  "ship_p3d"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.41"
+    ComputedModelVersion    "1.40"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 21:01:09 2016"
-  RTWModifiedTimeStamp	  400626041
-  ModelVersionFormat	  "1.%<AutoIncrement:41>"
+  LastModifiedDate	  "Wed Nov 09 21:02:02 2016"
+  RTWModifiedTimeStamp	  400623608
+  ModelVersionFormat	  "1.%<AutoIncrement:40>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ship_p3b"
+    model_		    "ship_p3d"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ship_p3b"
+      Cell		      "ship_p3d"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -921,7 +921,7 @@ Model {
     }
   }
   System {
-    Name		    "ship_p3b"
+    Name		    "ship_p3d"
     Location		    [-8, 0, 1378, 788]
     Open		    on
     ModelBrowserVisibility  off
@@ -990,7 +990,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "logic"
 	    Prompt		    "waves"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  PropName		  "Parameters"
 	}
