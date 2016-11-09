@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.34"
+    ComputedModelVersion    "1.39"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Daniel"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 13:20:32 2016"
-  RTWModifiedTimeStamp	  400598431
-  ModelVersionFormat	  "1.%<AutoIncrement:34>"
+  LastModifiedDate	  "Wed Nov 09 14:35:22 2016"
+  RTWModifiedTimeStamp	  400602001
+  ModelVersionFormat	  "1.%<AutoIncrement:39>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -181,7 +181,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.15.0"
 	  StartTime		  "0.0"
-	  StopTime		  "5000"
+	  StopTime		  "1000"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -978,7 +978,21 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "50"
+    SIDHighWatermark	    "52"
+    Block {
+      BlockType		      ToWorkspace
+      Name		      " "
+      SID		      "51"
+      Ports		      [1]
+      Position		      [480, 450, 540, 480]
+      ZOrder		      13
+      VariableName	      "rudder"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Timeseries"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
     Block {
       BlockType		      SubSystem
       Name		      "Cargo ship"
@@ -1018,7 +1032,7 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "logic"
 	    Prompt		    "waves"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  PropName		  "Parameters"
 	}
@@ -1619,6 +1633,17 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  SID			  "52"
+	  Ports			  [1, 1]
+	  Position		  [590, 160, 620, 190]
+	  ZOrder		  16
+	  InputPortMap		  "u0"
+	  UpperLimit		  "45"
+	  LowerLimit		  "-45"
+	}
+	Block {
 	  BlockType		  Sum
 	  Name			  "Sum"
 	  SID			  "40"
@@ -1627,7 +1652,7 @@ Model {
 	  ZOrder		  10
 	  ShowName		  off
 	  IconShape		  "round"
-	  Inputs		  "|++"
+	  Inputs		  "|+-"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1645,7 +1670,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "delta(deg)"
 	  SID			  "48"
-	  Position		  [575, 168, 605, 182]
+	  Position		  [660, 168, 690, 182]
 	  ZOrder		  13
 	  IconDisplay		  "Port number"
 	}
@@ -1701,8 +1726,15 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  36
+	  ZOrder		  37
 	  SrcBlock		  "R2D"
+	  SrcPort		  1
+	  DstBlock		  "Saturation"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  38
+	  SrcBlock		  "Saturation"
 	  SrcPort		  1
 	  DstBlock		  "delta(deg)"
 	  DstPort		  1
@@ -1826,11 +1858,21 @@ Model {
       DstPort		      2
     }
     Line {
-      ZOrder		      39
+      ZOrder		      48
       SrcBlock		      "PD controller"
       SrcPort		      1
-      DstBlock		      "Cargo ship"
-      DstPort		      1
+      Points		      [50, 0]
+      Branch {
+	ZOrder			50
+	DstBlock		"Cargo ship"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			49
+	Points			[0, 140]
+	DstBlock		" "
+	DstPort			1
+      }
     }
   }
 }
