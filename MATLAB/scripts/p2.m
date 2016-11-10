@@ -1,14 +1,19 @@
+close all
+
+set(groot, 'defaultAxesTickLabelInterpreter','latex');
+set(groot, 'defaultLegendInterpreter','latex');
+
 load('wave.mat');
 window = 4096;
 fs = 10;
 [pxx,f] = pwelch(psi_w(2,:).*pi./180,window, [], [],fs);
 fig1 = figure();
 plot(2.*pi.*f, pxx./2./pi);
-title('Welch PSD estimate');
+title('');
 ylabel('power s/rad');
 xlabel('rad/s');
 xlim([0 2]);
-saveas(fig1,'../figures/2a-welchPSDestimate.fig')
+saveas(fig1,'../figures/2a-welchPSDestimate.fig');
 
 sigma_squared = max(pxx)/2/pi;
 omega_zero = 1;
@@ -28,8 +33,8 @@ hold on;
 plot(w, P_psi_omega(lambda, w));
 plot(w, pxx./2./pi);
 legend('Theoretical PDS', 'Estimated PDS');
-title('Fitted theoretical PSD vs estimated PSD');
+title('');
 ylabel('power s/rad');
 xlabel('rad/s');
-xlim([0 2])
-saveas(fig1,'../figures/2d-fitted_theoretical_PSD_vs_estimated_PSD')
+xlim([0 2]);
+saveas(fig2,'../figures/2d-fitted_theoretical_PSD_vs_estimated_PSD');

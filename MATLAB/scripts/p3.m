@@ -2,6 +2,9 @@ close all
 addpath ../
 addpath ../models/
 
+set(groot, 'defaultAxesTickLabelInterpreter','latex');
+set(groot, 'defaultLegendInterpreter','latex');
+
 %% 3a
 T = 85.6697;
 K = 0.173945;
@@ -20,10 +23,11 @@ H = H_ship*H_pd;
 fig1 = figure();
 bode(H);
 margin(H);
+title('');
 saveas(fig1,'../figures/3a-bode_and_phasemargin.fig');
 
 %% 3b
-axlbl = @(h) [xlabel(h, 'Time [s]'); ylabel(h, '\psi,\delta [deg]'); legend(h, '\psi', '\delta')];
+axlbl = @(h) [xlabel(h, 'Time [s]'); ylabel(h, '$\psi$,$\delta$ [deg]'); legend(h, '$\psi$', '$\delta$')];
 simb = sim('ship_p3b.mdl');
 fig2 = figure();
 plot(rudder.time, compass.data, rudder.time, rudder.data);
@@ -42,4 +46,4 @@ simd = sim('ship_p3d.mdl');
 fig4 = figure();
 plot(rudder.time, compass.data, rudder.time, rudder.data);
 axlbl(gca);
-saveas(fig3,'../figures/3d-psi_and_rudder_w_waves.fig');
+saveas(fig4,'../figures/3d-psi_and_rudder_w_waves.fig');
