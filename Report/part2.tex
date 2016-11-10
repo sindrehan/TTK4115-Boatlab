@@ -4,8 +4,15 @@ The MATLAB function \texttt{pwelch} calculates an estimate of the power spectral
 dividing the signal $\psi_w$ into K overlapping blocks multiplied by a windowing function, and finding an
 estimate for the periodogram of each one.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/2a-welchPSDestimate}
+    \caption{Welch PSD estimate}
+    \label{fig:2a-welchPSDestimate}
+\end{figure}
+
 \subsection{Problem b}
-Using the following state equations in the problem description \todo{add reference and cite},
+Using the following state equations in the problem description \cite{assignment}
 
 \begin{align*}
     \xi_w &= \psi_w \\
@@ -36,8 +43,17 @@ To find the Power Spectral Density function of S
 
 \subsection{Problem c}
 
-$\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the x-axis. This is the resonant frequency and the point where ???? $\psi_\omega$ correlates the most with itself.
+$\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the x-axis. This is the resonant 
+frequency and the point where ???? $\psi_\omega$ correlates the most with itself.
 
 \subsection{Problem d}
 $\sigma^2 = 0.0015$
-To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$
+To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
+function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/2d-fitted_theoretical_PSD_vs_estimated_PSD}
+    \caption{Fitted theoretical PSD vs estimated PSD}
+    \label{fig:2d-fitted_theoretical_PSD_vs_estimated_PSD}
+\end{figure}
