@@ -1,1 +1,20 @@
 \section{Control system design}
+
+\subsection{Problem a}
+
+The PD transfer function is of the form
+\begin{align*}
+    H_{pd}(s) &= K_{pd}(1+T_d s)/(1+T_f s) \\
+              &= K_{pd}(1+T s)/(1+\alpha T s)
+\end{align*}
+
+Where $T_d = T$ in order to cancel the systems pole factor $(Ts + 1)$, and $T_f = \alpha T_d = \alpha T$. We set $K_{pd} = 0.8, \alpha = 0.1$. Figure INSERT contains the bode plot of the system $H(s) = H_{ship}(s)H_{pd}(s)$, with the phase margin Pm at 48.3 degrees, and crossover angular frequency at 0.104 rad/s.
+
+\subsection{Problem b}
+As shown in INSERT, the autopilot functions with only measurement noise.
+
+\subsection{Problem c}
+As shown in INSERT, the autopilot functions somewhat but has a stationary deviation as expected.
+
+\subsection{Problem d}
+As shown in INSERT, the autopilot functions somewhat but with unacceptable high frequent noise that would strain the motors of the ship.

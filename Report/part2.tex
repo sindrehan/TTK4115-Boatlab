@@ -5,7 +5,34 @@ dividing the signal $\psi_w$ into K overlapping blocks multiplied by a windowing
 estimate for the periodogram of each one.
 
 \subsection{Problem b}
-Se beskrivelsen i 
+Using the following state equations in the problem description \todo{add reference and cite},
+
+\begin{align*}
+    \xi_w &= \psi_w \\
+    \dot{\psi}_w &= -\omega^2_0\xi_w - 2\lambda\omega_0\psi_w + K_ww_w
+\end{align*}
+
+the transfer function between $w_w$ and $\psi_w$ can be found.
+
+Replacing $\xi_w$ with $\int\psi_w$ and taking the Laplace transform leads to:
+\begin{align*}
+    \Psi_w(s)s &= -\omega^2_0\Psi_w(s)\frac{1}{s} - 2\lambda\omega_0\Psi_w(s) + K_wW_w(s)
+\end{align*}
+
+Rearrange terms to get the transfer function:
+\begin{align*}
+    \frac{\Psi_w(s)}{W_w(s)} &= \frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}
+\end{align*}
+
+To find the Power Spectral Density function of S
+
+\begin{align*}
+    P_{\Psi_w}(\omega) &= E(\left|\Psi_w(s)\right|^2)|_{s=j\omega} \\
+    &= E\left(\left|\frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}w_w(s)\right|^2\right)|_{s=j\omega} \\
+    &= \frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}|_{s=j\omega} E(\left|w_w(s)\right|^2) \\
+    &= K_w^2\frac{\omega^2}{\left|-\omega^2+\omega^2_0+2\lambda\omega_0\omega\right|^2} \\
+    &= \frac{K_w^2w^2}{w^4+(4\lambda^2-2)w_0^2w^2+w_0^4}
+\end{align*}
 
 \subsection{Problem c}
 
@@ -13,3 +40,4 @@ $\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the
 
 \subsection{Problem d}
 $\sigma^2 = 0.0015$
+To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$
