@@ -2,6 +2,7 @@ close all
 
 set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
+set(groot, 'defaultFigureColor', [1 1 1]);
 
 T = 85.6697;
 K = 0.173945;

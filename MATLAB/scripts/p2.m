@@ -2,6 +2,7 @@ close all
 
 set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
+set(groot, 'defaultFigureColor', [1 1 1]);
 
 load('wave.mat');
 window = 4096;

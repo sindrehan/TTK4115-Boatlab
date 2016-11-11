@@ -4,6 +4,7 @@ addpath ../models/
 
 set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
+set(groot, 'defaultFigureColor', [1 1 1]);
 
 %% 3a
 T = 85.6697;

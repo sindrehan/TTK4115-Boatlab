@@ -4,6 +4,7 @@ addpath ../models/
 
 set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
+set(groot, 'defaultFigureColor', [1 1 1]);
 
 omega = 0.005;
 sim1 = sim('ship_p1c.mdl');
