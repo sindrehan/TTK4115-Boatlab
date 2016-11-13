@@ -6,6 +6,10 @@ set(groot, 'defaultAxesTickLabelInterpreter','latex');
 set(groot, 'defaultLegendInterpreter','latex');
 set(groot, 'defaultFigureColor', [1 1 1]);
 
+axlbl = @(h) [xlabel(h, 'Time [s]'); ylabel(h, '$\psi$,$\delta$ [deg]'); legend(h, '$\psi$', '$\delta$')];
+
+load_system('ship_p3.mdl');
+
 %% 3a
 T = 85.6697;
 K = 0.173945;
@@ -28,22 +32,33 @@ title('');
 saveas(fig1,'../figures/3a-bode_and_phasemargin.fig');
 
 %% 3b
-axlbl = @(h) [xlabel(h, 'Time [s]'); ylabel(h, '$\psi$,$\delta$ [deg]'); legend(h, '$\psi$', '$\delta$')];
-simb = sim('ship_p3b.mdl');
+set_param('ship_p3/Cargo ship', 'noise', 'on');
+set_param('ship_p3/Cargo ship', 'current', 'off');
+set_param('ship_p3/Cargo ship', 'waves', 'off');
+sim('ship_p3.mdl');
+
 fig2 = figure();
 plot(rudder.time, compass.data, rudder.time, rudder.data);
 axlbl(gca);
 saveas(fig2,'../figures/3b-psi_and_rudder.fig');
 
 %% 3c
-simc = sim('ship_p3c.mdl');
+set_param('ship_p3/Cargo ship', 'noise', 'on');
+set_param('ship_p3/Cargo ship', 'current', 'on');
+set_param('ship_p3/Cargo ship', 'waves', 'off');
+sim('ship_p3.mdl');
+
 fig3 = figure();
 plot(rudder.time, compass.data, rudder.time, rudder.data);
 axlbl(gca);
 saveas(fig3,'../figures/3c-psi_and_rudder_w_current.fig');
 
 %% 3d
-simd = sim('ship_p3d.mdl');
+set_param('ship_p3/Cargo ship', 'noise', 'on');
+set_param('ship_p3/Cargo ship', 'current', 'off');
+set_param('ship_p3/Cargo ship', 'waves', 'on');
+sim('ship_p3.mdl');
+
 fig4 = figure();
 plot(rudder.time, compass.data, rudder.time, rudder.data);
 axlbl(gca);

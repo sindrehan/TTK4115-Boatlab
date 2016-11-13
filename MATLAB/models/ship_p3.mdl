@@ -1,5 +1,5 @@
 Model {
-  Name			  "ship_p3d"
+  Name			  "ship_p3"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.41"
+    ComputedModelVersion    "1.44"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -53,7 +53,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1336.0, 614.0]
+	Extents			[1336.0, 611.0]
 	ZoomFactor		[1.5]
 	Offset			[44.439872738860913, 165.95238095238093]
       }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Nov 09 21:41:39 2016"
-  RTWModifiedTimeStamp	  400628496
-  ModelVersionFormat	  "1.%<AutoIncrement:41>"
+  LastModifiedDate	  "Sun Nov 13 15:44:53 2016"
+  RTWModifiedTimeStamp	  400952559
+  ModelVersionFormat	  "1.%<AutoIncrement:44>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ship_p3d"
+    model_		    "ship_p3"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ship_p3d"
+      Cell		      "ship_p3"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -921,7 +921,7 @@ Model {
     }
   }
   System {
-    Name		    "ship_p3d"
+    Name		    "ship_p3"
     Location		    [-8, 0, 1378, 788]
     Open		    on
     ModelBrowserVisibility  off
@@ -983,14 +983,14 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "current"
 	    Prompt		    "current"
-	    Value		    "off"
+	    Value		    "on"
 	  }
 	  Object {
 	    $ObjectID		    22
 	    Type		    "checkbox"
-	    Name		    "logic"
+	    Name		    "waves"
 	    Prompt		    "waves"
-	    Value		    "on"
+	    Value		    "off"
 	  }
 	  PropName		  "Parameters"
 	}
@@ -1069,7 +1069,7 @@ Model {
 	  Position		  [325, 83, 380, 117]
 	  ZOrder		  -6
 	  ShowName		  off
-	  Gain			  "logic"
+	  Gain			  "waves"
 	}
 	Block {
 	  BlockType		  Gain
