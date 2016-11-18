@@ -57,7 +57,8 @@ variance = var(compass);
 
 %% Part C
 task = 0; %0 For C, 1 for D
-load_system('ship_p5.slx');
+task2 = 0;
+load_system('ship_p5.mdl');
 
 % Start Matrices/Constants
 Q = [30 0; 0 10e-6]; %Process noise covaariance
@@ -69,7 +70,7 @@ set_param('ship_p5/Cargo ship', 'noise', 'on');
 set_param('ship_p5/Cargo ship', 'current', 'off');
 set_param('ship_p5/Cargo ship', 'waves', 'off');
 
-sim('ship_p5.slx');
+sim('ship_p5.mdl');
 
 figure()
 plot(x_k.time, x_k.signals.values(:,3))
@@ -93,7 +94,7 @@ set_param('ship_p5/Cargo ship', 'noise', 'on');
 set_param('ship_p5/Cargo ship', 'current', 'on');
 set_param('ship_p5/Cargo ship', 'waves', 'off');
 
-sim('ship_p5.slx');
+sim('ship_p5.mdl');
 
 figure()
 plot(x_k.time, x_k.signals.values(:,3))
@@ -112,10 +113,11 @@ legend('Kalman Estimate', 'Measured')
 title('')
 ylabel('Rudder Angle (deg)')
 
-%% Part D
-set_param('ship_p5e/Cargo ship', 'noise', 'on');
-set_param('ship_p5e/Cargo ship', 'current', 'on');
-set_param('ship_p5e/Cargo ship', 'waves', 'on');
+%% Part E
+task2 = 1;
+set_param('ship_p5/Cargo ship', 'noise', 'on');
+set_param('ship_p5/Cargo ship', 'current', 'on');
+set_param('ship_p5/Cargo ship', 'waves', 'on');
 
 sim('ship_p5e.slx');
 
