@@ -114,9 +114,55 @@ With this, we can also define an a priori error and an a posteriori error, and a
 \bm{e}^-[k] &= \bm{x}[k] - \hat{\bm{x}}^-[k] \\
 \bm{e}[k] &= \bm{x}[k] - \hat{\bm{x}}[k] \\
 \bm{P}^-[k] &= E(\hat{\bm{x}}^-[k]\hat{\bm{x}}^-[k]^T) \\
-\bm{P}[k] &= E(\hat{\bm{x}}\hat{\bm{x}}^T)
+\bm{P}[k] &= E(\hat{\bm{x}}[k]\hat{\bm{x}}[k]^T)
 \end{align}
 
+Using this information, we can find update rules for $\bm{P}^-[k], \bm{P}[k]$, and $\bm{L}[k]$. First we find update rules for the a priori and a posteriori error:
+\begin{align*}
+    \bm{e}^-[k] &= \bm{x}[k]-\hat{\bm{x}}^-[k] \\
+                &= \thickbar{\bm{A}}\bm{x}[k-1] + \thickbar{\bm{B}}\bm{u}[k-1] + \thickbar{\bm{w}}[k-1] - (\thickbar{\bm{A}}\hat{\bm{x}}[k-1] + \thickbar{\bm{B}}\bm{u}[k-1]) \\
+                &= \thickbar{\bm{A}}\bm{e}[k-1] + \thickbar{\bm{w}}[k-1] \\
+    \bm{e}[k]&= \bm{x}[k] -\hat{\bm{x}}[k] \\
+             &= \bm{x}[k] - (\bmhat{x}^-[k]+\bm{L}[k](\bm{y}-\bm{C}\bmhat{x}^-[k])) \\
+             &= \bm{x}[k] - (\bmhat{x}^-[k]+\bm{L}[k](\bm{C}\bm{x}[k] -\bm{C}\bmhat{x}^-[k]+\bmbar{v}[k])) \\
+             &= \bm{e}^-[k] - \bm{L}[k]\bm{C}\bm{e}^-[k]-\bm{L}[k]\bmbar{v}[k]
+\end{align*}
+A priori mean-square-error thus becomes:
+\begin{align*}
+    \bm{P}^-[k] &= E(\bm{e}^-[k]\bm{e}^-[k]^T) \\
+                &= E((\thickbar{\bm{A}}\bm{e}[k-1] + \thickbar{\bm{w}}[k-1])(\thickbar{\bm{A}}\bm{e}[k-1] + \thickbar{\bm{w}}[k-1])^T) \\
+                &= \thickbar{\bm{A}}E(\bm{e}[k-1]\bm{e}[k-1]^T)\thickbar{\bm{A}}^T + E(\thickbar{\bm{w}}[k-1]\thickbar{\bm{w}}[k-1]^T)
+\end{align*}
+The last line follows because $\bm{e}$ and $\bm{w}$ are uncorrelated. This simplifies to
+\begin{equation}
+\bm{P}^-[k] = \thickbar{\bm{A}}\bm{P}[k-1]\thickbar{\bm{A}}^T + \thickbar{\bm{Q}}_{\bm{w}}
+\end{equation}
 
+And the a posteriori mean-square-error becomes:
+\begin{align*}
+    \bm{P}[k] &= E(\bm{e}[k]\bm{e}[k]^T) \\
+              &= E(\ ((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])^T) \\
+              &= (\bm{I} - \bm{L}[k]\bm{C})\bm{P}^-[k](\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T
+\end{align*}
+Again, where the last line follows because $\bm{e}^-[k]$ and $\bmbar{v}$ are uncorrelated.
+
+Lastly, we can now find the update rule for $\bm{L}[k]$. It is found by minimizing the mean-square-error itself
+
+\subsection{Problem d}
+The Kalman filter gives access to an estimate of the bias to the rubber angle (\cref{fig:5d-estimated_rudder_bias}).  With current disturbance on, this bias became apparent when attempting to steer the ship (Part 3C \cref{fig:3b-psi_and_rudder_w_current}).  However, this bias can now be compensated for by adding the estimated bias as a feedforward term to the rudder input.  This results of using this term, with current disturbances on, is seen in \cref{fig:5d-psi_and_rudder}.  This term removes the steady state error seen previously.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/5d-psi_and_rudder}
+    \caption{Compass angle, $\psi$, and rudder angle, $\delta$, along the y-axis, plotted against time in the x-axis. Using estimated bias from \cref{fig:5d-estimated_rudder_bias} as feedforward term added to the rudder input. With current disturbance and measurement noise}
+    \label{fig:5d-psi_and_rudder}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/5d-estimated_rudder_bias}
+    \caption{Kalman estimated rudder bias over time. With current disturbance and measurement noise}
+    \label{fig:5d-estimated_rudder_bias}
+\end{figure}
 
 \subsection{Problem e}
