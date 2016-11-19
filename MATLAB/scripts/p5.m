@@ -37,11 +37,7 @@ A = [0 1 0 0 0 ;
 B = [ 0 ; 0 ; 0 ; K/T ; 0 ];
 C = [ 0 1 1 0 0];
 E = [ 0 0 ; K_omega 0 ; 0 0 ; 0 0 ; 0 1];
-% 
-Q_w = [30 0 ; 0 10^-6];
-% 
-% M = exp([A E*Q_w*transpose(E) ; zeros(size(A))  -transpose(A)]*T_s);
-% N = exp([A B ; zeros(size(transpose(B))) zeros(min(size(B)))]*T_s);
+Q_w = (pi/180)^2 * [30 0 ; 0 10^-6];
 
 [A_d B_d] = c2d(A, B, T_s);
 [A_d E_d] = c2d(A, E, T_s);
@@ -53,16 +49,16 @@ Q_wd = E_d*Q_w*transpose(E_d);
 sim('ship_p5b.mdl');
 
 % Get variance of compass values
-variance = var(compass);
+variance = var(compass*pi/180);
 
 %% Part C
 task = 0; %0 For C, 1 for D
-task2 = 0;
+task2 = 0; %0 for C/D, 1 for E
 load_system('ship_p5.mdl');
 
 % Start Matrices/Constants
-Q = [30 0; 0 10e-6]; %Process noise covaariance
-P0_apriori = diag([1 0.13 pi^2 1 2.5e-4]); %initial a priori estimate error covariance
+Q = (pi/180)^2 * [30 0; 0 10e-6]; %Process noise covaariance
+P0_apriori = (pi/180)^2 * diag([1 0.013 pi^2 1 2.5e-4]); %initial a priori estimate error covariance
 x0_apriori = zeros(5, 1);
 
 R_v = variance/T_s; %discrete time variance of measurement noise
@@ -90,6 +86,7 @@ ylabel('Rudder Angle (deg)')
 
 %% Part D
 task = 1;
+task2 = 0;
 set_param('ship_p5/Cargo ship', 'noise', 'on');
 set_param('ship_p5/Cargo ship', 'current', 'on');
 set_param('ship_p5/Cargo ship', 'waves', 'off');
@@ -114,12 +111,13 @@ title('')
 ylabel('Rudder Angle (deg)')
 
 %% Part E
+task1 = 1;
 task2 = 1;
 set_param('ship_p5/Cargo ship', 'noise', 'on');
 set_param('ship_p5/Cargo ship', 'current', 'on');
 set_param('ship_p5/Cargo ship', 'waves', 'on');
 
-sim('ship_p5e.slx');
+sim('ship_p5.mdl');
 
 figure()
 plot(x_k.time, x_k.signals.values(:,3))
