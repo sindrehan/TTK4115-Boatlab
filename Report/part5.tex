@@ -1,1 +1,96 @@
 \section{Discrete Kalman filter}
+\subsection{Problem a}
+The continuous solution of x with an input $\bm{u}$ with gain matrix $\bm{B}$, and disturbance $\bm{w}$ with gain matrix $\bm{E}$ is given by:
+\begin{equation*}
+\bm{x}(t) = e^{\bm{A}t}\bm{x}_0 + \int_0^te^{\bm{A}(t-\tau)}\bm{Bu}(\tau)d\tau + \int_0^te^{\bm{A}(t-\tau)}\bm{Ew}(\tau)d\tau
+\end{equation*}
+Using the continuous solution, we start it at $t=kT_s$ and stop it at $t=(k+1)T_s$. Here, $T_s = 1/F_s$ and $F_s = 10$ Hz is the sampling frequency. $T_s$ is thus the sampling period. Doing this, we get:
+\begin{equation}
+\bm{x}[k+1] = e^{\bm{A}T_s}\bm{x}_0 + \int_0^{T_s} e^{\bm{A}\alpha}\bm{Bu}((k+1)T_s -\alpha)d\alpha + \int_0^{T_s} e^{\bm{A}\alpha}\bm{Ew}((k+1)T_s -\alpha)d\alpha \label{x_disc}
+\end{equation}
+
+By setting a sampling period $T_s$ that is low enough, $\bm{u}$ and $\bm{w}$ can be seen as approximately constant between the time $t = kT_s$ and $t = (k+1)T_s$, and can be moved outside of our integral.
+
+\begin{equation}
+\bm{x}[k+1] = e^{\bm{A}T_s}\bm{x}_0 + \bm{u}\int_0^{T_s} e^{\bm{A}\alpha}\bm{B}d\alpha + \bm{w}\int_0^{T_s} e^{\bm{A}\alpha}\bm{E}d\alpha \label{x_disc_const}
+\end{equation}
+
+The exact discretized system is thus found to be:
+\begin{subequations}
+\begin{align}
+    \dot{\bm{x}}[k+1] =& \ \thickbar{\bm{A}}\bm{x}[k]+\thickbar{\bm{B}}\bm{u}[k] + \thickbar{\bm{w}}[k], \\
+    \thickbar{\bm{w}}[k] &= \thickbar{\bm{E}}\bm{w}[k], \label{w_bar} \\
+    \thickbar{\bm{A}} &= e^{\bm{A}T_s}, \\
+    \thickbar{\bm{B}} &= \int_{0}^{T_s}e^{\bm{A}\alpha}\bm{B}d\alpha \label{B_d}, \\
+    \thickbar{\bm{E}} &= \int_{0}^{T_s}e^{\bm{A}\alpha}\bm{E}d\alpha \label{E_d}
+\end{align}
+\end{subequations}
+The notation $\bm{X_d} = \thickbar{\bm{X}}$ is used in MATLAB code.\todo{vurder å fjærn dette}
+
+In MATLAB, they can be found through the
+\texttt{[A$_d$\ B$_d$] = c2d(A, B, T$_s$)} function. \\ \texttt{c2d(A, B, T$_s$)} uses the Van Loan's method:
+\begin{equation}
+exp(
+\begin{bmatrix}
+\bm{A} & \bm{B} \\
+\bm{0} & \bm{0} \\
+\end{bmatrix}
+T_s) = 
+\begin{bmatrix}
+\bm{N}_{11} & \bm{N}_{12} \\
+\bm{0} & \bm{I} \\
+\end{bmatrix}
+,\ \thickbar{\bm{A}} = \bm{N}_{11},\  \thickbar{\bm{B}} = \bm{N}_{12}
+\end{equation}
+Since $\bm{w}$ can be seen as an input with gain matrix $\bm{E}$ of the continuous system, one can replace $\bm{B}$ with $\bm{E}$ in order to find $\thickbar{\bm{E}}$.
+
+In order to find the autocovariance of $\thickbar{\bm{w}}$, we use the following relation where
+
+\begin{equation*}
+    \thickbar{\bm{A}}_{\bm{w}} = E((\thickbar{\bm{w}}[k]-\bm{m}_{\thickbar{\bm{w}}}[k])(\thickbar{\bm{w}}[l]-\bm{m}_{\thickbar{\bm{w}}}[l])^T)
+\end{equation*}
+Noting that the means are zero, and inserting the result in \cref{w_bar}, we get:
+\begin{align*}
+    \thickbar{\bm{A}}_{\bm{w}} &=
+    E(\thickbar{\bm{E}}\bm{w}[k]\bm{w}[l]^T\thickbar{\bm{E}}^T) \\
+    &= \int_0^{T_s}\int_0^{T_s}\thickbar{\bm{E}}E(\bm{w}((k+1)T_s-\alpha_1)\bm{w}((l+1)T_s-\alpha_2)^T)\thickbar{\bm{E}}^Td\alpha_1d\alpha_2 \\
+    &= \int_0^{T_s}\int_0^{T_s}\thickbar{\bm{E}}\delta[l-k]\delta(\alpha_1-\alpha_2)\bm{Q_w}\thickbar{\bm{E}}^Td\alpha_1d\alpha_2 \\
+    &= \int_0^{T_s}\thickbar{\bm{E}}\delta[l-k]\delta(\alpha_1)\bm{Q_w}\thickbar{\bm{E}}^Td\alpha_1 \\
+    &= \thickbar{\bm{E}}\bm{Q}_{\bm{w}}\thickbar{\bm{E}}^T
+\end{align*}
+Where the last line follows when l = k, that is when the discretized disturbance is at the same time step. Here we write $\thickbar{\bm{E}}\bm{Q}_{\bm{w}}\thickbar{\bm{E}}^T$ as $\thickbar{\bm{Q}}_{\bm{w}}$:
+\begin{equation}
+\thickbar{\bm{Q}}_{\bm{w}} =\thickbar{\bm{E}}\bm{Q}_{\bm{w}}\thickbar{\bm{E}}^T
+\end{equation}
+The discretized output of the system is:
+\begin{equation*}
+\bm{y}[k] = \bm{Cx}[k] + \thickbar{\bm{v}}[k]
+\end{equation*}
+where $\thickbar{\bm{v}}[k]$ is the averaged measurement noise. We use this as opposed to the direct measurement noise at time $kT_s$ in order to avoid the exaggeration of sampling continuous time noise into discrete time.
+\begin{equation*}
+\thickbar{\bm{v}}[k] = \frac{1}{T_s}\int_0^{T_s}\bm{v}(kT-\alpha)d\alpha
+\end{equation*}
+The autocovariance of the noise becomes (again with mean equal to zero):
+\begin{align*}
+    \thickbar{\bm{A}}_\bm{v}[k, l] &= E(\thickbar{\bm{v}}[k]\thickbar{\bm{v}}[l]^T) \\
+    &= \frac{1}{T_s^2}\int_0^{T_s}\int_0^{T_s}E(\bm{v}(kT_s-\alpha_1)\bm{v}(lT_s-\alpha_2)^T)d\alpha_1d\alpha_2 \\
+    &= \frac{1}{T_s^2}\int_0^{T_s}\int_0^{T_s}\bm{R_v}\delta[k-l]\delta(\alpha_1-\alpha_2)d\alpha_1d\alpha_2 \\
+    &= \frac{1}{T_s^2}\int_0^{T_s}\bm{R_v}\delta[k-l]d\alpha_1 \\
+    &= \frac{1}{T_s}\bm{R_v}
+\end{align*}
+Where the last step follows when $l = k$. We rewrite the autocovariance as:
+\begin{equation}
+\thickbar{\bm{R}}_{\bm{v}} = \bm{R_v}/T_s
+\end{equation}
+
+\subsection{Problem b}
+The system is simulated with a constant rudder $\delta$-input of 0. An estimate of the variance of 
+the measurement noise is found by use of the MATLAB function {\texttt{var}}. \todo{Det er faktisk en fordel å skrive bittelitt mer om dette, men gjør det til slutt} The variance 
+is found to be 0.0020.
+
+\subsection{Problem c}
+A discrete Kalman filter is to be designed. It is a discrete observer which performs optimal estimation through minimizing the mean-square-error $J[k] = tr(\bm{P}[k]$, where $\bm{P}[k] \triangleq E(\bm{e}\bm{e}^T) = E((\bm{x} - \hat{\bm{x}})(\bm{x} - \hat{\bm{x}})^T)$
+\\
+\todo{Her må det puttes inn oppdateringsreglene. Om det går an å skrive noen settninger om hvor hver oppdateringsregel kommer fra, kanskje bittelitt utledning slik at vi viser at vi forstår det, så er det en fordel}
+
+\subsection{Problem e}
