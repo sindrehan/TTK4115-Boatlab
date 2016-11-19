@@ -34,7 +34,7 @@ As shown in \cref{fig:3b-psi_and_rudder}, the autopilot functions well with only
 \end{figure}
 
 \subsection{Problem c}
-With measurement noise and current disturbances, the autopilot functions as shown in \cref{fig:3b-psi_and_rudder_w_current}. While the angle approaches the setpoint with acceptable rudder inputs, there is an unacceptable steady state error. This is expected since the current creates a bias in the rudder and there is no integral term in the controller to eliminate steady state errors.
+With measurement noise and current disturbances, the autopilot functions as shown in \cref{fig:3b-psi_and_rudder_w_current}. While the angle approaches the setpoint with acceptable rudder inputs, there is an unacceptable steady state error, such that the angle never reaches the setpoint. This is expected since the current creates a bias in the rudder and there is no integral term in the controller to eliminate steady state errors.
 
 \begin{figure}[ht]
     \centering
