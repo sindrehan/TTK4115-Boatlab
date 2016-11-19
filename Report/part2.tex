@@ -44,12 +44,12 @@ To find the Power Spectral Density function of S
 \subsection{Problem c}
 
 $\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the x-axis. This is the resonant 
-frequency and the point where ???? $\psi_\omega$ correlates the most with itself.
+frequency and the point where ???? $\psi_\omega$ correlates the most with itself. \todo{fill out better.}
 
 \subsection{Problem d}
-$\sigma^2$, the peak value of = 0.0015$
-To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
-function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$ (forklar nøyere?). $\lambda$ was found to be 0.0827.
+$\sigma^2$, the peak value of $P_{\psi_\omega}(\omega)$ is equal to 0.0015.
+By setting $K_w = 2\lambda\omega_0\sigma$, the only parameter unknown in $P_{\psi_\omega}(\lambda, \omega)$ is $\lambda$. To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
+function between the target data $S_{\psi_\omega}(\omega)$, and the analytical function $P_{\psi_\omega}(\lambda, \omega)$ \todo{(forklar nøyere?)}. $\lambda$ was found to be 0.0827. The difference between the estimated and analytical PSD functions is shown (\cref{fig:2d-fitted_theoretical_PSD_vs_estimated_PSD}) to be very small.
 
 \begin{figure}[ht]
     \centering
