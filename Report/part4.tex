@@ -11,15 +11,185 @@ disturbances \textbf{w} = $[w_w\: w_b]^T$ and output $y$:
 
 with the matrices:
 
-\begin{align*}
-    A &= 
-\end{align*}
+\begin{equation}
+    \label{eq:State Space With Disturbances}
+    \begin{aligned}
+        A &= 
+    	\begin{bmatrix}
+        0           &      1            & 0 & 0 			 & 0 \\
+        -\omega_0^2 & -2\lambda\omega_0 & 0 & 0 			 & 0 \\
+        0           & 0                 & 0 & 1              & 0 \\
+    	0           & 0                 & 0 & -\frac{1}{T}   & -\frac{K}{T} \\
+    	0           & 0                 & 0 & 0 			 & 0 \\
+      \end{bmatrix}
+      \qquad
+      B =
+      \begin{bmatrix}
+        0 \\
+        0 \\
+    	0 \\
+        \frac{K}{T} \\
+        0 \\
+      \end{bmatrix}
+      \\
+      E &=
+      \begin{bmatrix}
+        0   & 0 \\
+        K_w & 0 \\
+    	0   & 0 \\
+        0   & 0 \\
+        0   & 1 \\
+      \end{bmatrix}
+      \qquad
+      C =
+      \begin{bmatrix}
+        0 & 1 & 1 & 0 & 0 \\
+      \end{bmatrix}
+    \end{aligned}
+\end{equation}
 
 \subsection{Problem b}
-Uten disturbances
+For Part B-E, the observability matrix is used to study observability. It is defined as:
+
+\begin{equation}
+  \bm{\mathcal{O}} =
+  \begin{bmatrix}
+    \bm{C} \\
+    \bm{CA} \\
+    \bm{C*A^2} \\
+    \vdots \\
+    \bm{C*A^{n-2}} \\
+    \bm{C*A^{n-1}} \\
+  \end{bmatrix} \\
+\end{equation}
+
+where n is the number of state variables. The observability matrix is calculated using MATLAB's \texttt{obsv(A, C)} command.  If the matrix is full column rank, then the system is observable.
+
+When examining observability without disturbances, the states affected by disturbances are disregarded . The remaining states are $\psi$ and r. With these states, the state space matrices become:
+
+\begin{equation}
+    A = 
+	\begin{bmatrix}
+    0 & 1            \\
+	0 & -\frac{1}{T} \\
+	\end{bmatrix}
+  \qquad
+  B =
+  \begin{bmatrix}
+	0 \\
+    \frac{K}{T} \\
+  \end{bmatrix}
+  \qquad
+  C =
+  \begin{bmatrix}
+    1 & 0\\
+  \end{bmatrix}
+\end{equation}
+
+and the observability matrix becomes:
+
+\begin{equation}
+  \bm{\mathcal{O}} =
+  \begin{bmatrix}
+    1 & 0 \\
+    0 & 1 \\
+  \end{bmatrix}
+\end{equation}
+
+The rank of this matrix is 2, which is full rank, therefore the system without disturbances is observable.
+
 \subsection{Problem c}
-current disturbance only
+When examining observability with only disturbances from the current, the states affected by wave disturbances are disregarded. The remaining states are $\psi$, r and b. With these states, the state space matrices become:
+
+\begin{equation}
+    A = 
+	\begin{bmatrix}
+    0 & 1            & 0\\
+	0 & -\frac{1}{T} & -\frac{K}{T}\\
+	0 & 0            & 0
+	\end{bmatrix}
+  \qquad
+  B =
+  \begin{bmatrix}
+	0 \\
+    \frac{K}{T} \\
+    0 \\
+  \end{bmatrix}
+  \qquad
+  C =
+  \begin{bmatrix}
+    1 & 0 & 0\\
+  \end{bmatrix}
+\end{equation}
+
+and the observability matrix becomes:
+
+\begin{equation}
+  \bm{\mathcal{O}} =
+  \begin{bmatrix}
+    1 & 0       & 0\\
+    0 & 1       & 0\\
+    0 & -0.0117 & -0.002 \\
+  \end{bmatrix}
+\end{equation}
+
+The rank of this matrix is 3, which is full rank, therefore the system with only current disturbances is observable.
+
 \subsection{Problem d}
-wave disturbances
+When examining observability with only disturbances from the waves, the states affected by wave disturbances are disregarded. The remaining states are $\xi_w$, $\psi_w$, $\psi$ and r. With these states, the state space matrices become:
+
+\begin{equation}
+    A = 
+	\begin{bmatrix}
+    0           & 1                 & 0 & 0\\
+	-\omega_0^2 & -2\lambda\omega_0 & 0 & 0\\
+	0           & 0                 & 0 & 1\\
+	0           & 0                 & 0 & -\frac{1}{T}\\
+	\end{bmatrix}
+  \qquad
+  B =
+  \begin{bmatrix}
+	0 \\
+    0 \\
+    0 \\
+    \frac{K}{T}
+  \end{bmatrix}
+  \qquad
+  C =
+  \begin{bmatrix}
+    0 & 1 & 1 & 0\\
+  \end{bmatrix}
+\end{equation}
+
+and the observability matrix becomes:
+
+
+
+\begin{equation}
+  \bm{\mathcal{O}} =
+  \begin{bmatrix}
+    0      &  1       & 1   & 0 \\
+   -0.6120 &  -0.1294 & 0   & 1 \\
+    0.0792 &  -0.5953 & 0   & -0.0117 \\
+    0.3643 &   0.1562 & 0   & 0.0001 \\
+  \end{bmatrix}
+\end{equation}
+
+The rank of this matrix is 4, which is full rank, therefore the system with only wave disturbances is observable.
 \subsection{Problem e}
-both disturbances
+The system with both disturbances from the current and from the waves has the state space form described in Part A \cref{eq:State Space With Disturbances}.
+
+The observability matrix for this system is:
+
+\begin{equation}
+  \bm{\mathcal{O}} =
+  \begin{bmatrix}
+         0  &       1  &       1 &        0 &  0 \\
+   -0.6120  & -0.1294  &       0 &        1 &  0 \\
+    0.0792  & -0.5953  &       0 &  -0.0117 &  -0.0020 \\
+    0.3643  &  0.1562  &       0 &   0.0001 &  0 \\
+   -0.0956  &  0.3441  &       0 &        0 &  0 \\
+  \end{bmatrix}
+\end{equation}
+
+The rank of this matrix is 5, which is full rank, therefore the system with both current and wave disturbances is observable.
