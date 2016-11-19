@@ -93,7 +93,7 @@ is found to be 0.0020.
 \subsection{Problem c}
 \todo[inline]{Bit on zero-order holds, function blocks and memory}
 A discrete Kalman filter is to be designed. It is a discrete observer which performs optimal estimation through minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$, where
-$\bm{P}[k] \triangleq E(\bm{e}[k]\bm{e}[k]^T) = E((\bm{x}[k] - \hat{\bm{x}}[k])(\bm{x}[k] - \hat{\bm{x}}[k])^T)$.
+$\bm{P}[k] \triangleq E(\bm{e}[k]\bm{e}[k]^T) = E((\bm{x}[k] - \hat{\bm{x}}[k])(\bm{x}[k] - \hat{\bm{x}}[k])^T)$ is the covariance matrix.
 
 The estimate is generated in two phases, one guess for $\bm{x}[k]$ before $\bm{y}[k]$ is taken into account, called a priori (prior observation), and one guess after called a posteriori (post observation).
 
@@ -109,7 +109,7 @@ A posteriori estimate:
 \end{equation}
 And this is the update of $\thickbar{\bm{x}}[k]$ based on the a priori value, the measured $\bm{y}[k]$, and the updated Kalman gain $\bm{L}[k]$.
 
-With this, we can also define an a priori error and an a posteriori error, and an a priori and a posteriori mean-square error. They are respectively:
+With this, we can also define an a priori error and an a posteriori error, and an a priori and a posteriori covariance matrices. They are respectively:
 \begin{align}
 \bm{e}^-[k] &= \bm{x}[k] - \hat{\bm{x}}^-[k] \\
 \bm{e}[k] &= \bm{x}[k] - \hat{\bm{x}}[k] \\
@@ -127,7 +127,7 @@ Using this information, we can find update rules for $\bm{P}^-[k], \bm{P}[k]$, a
              &= \bm{x}[k] - (\bmhat{x}^-[k]+\bm{L}[k](\bm{C}\bm{x}[k] -\bm{C}\bmhat{x}^-[k]+\bmbar{v}[k])) \\
              &= \bm{e}^-[k] - \bm{L}[k]\bm{C}\bm{e}^-[k]-\bm{L}[k]\bmbar{v}[k]
 \end{align*}
-A priori mean-square-error thus becomes:
+The a priori covariance matrix becomes:
 \begin{align*}
     \bm{P}^-[k] &= E(\bm{e}^-[k]\bm{e}^-[k]^T) \\
                 &= E((\thickbar{\bm{A}}\bm{e}[k-1] + \thickbar{\bm{w}}[k-1])(\thickbar{\bm{A}}\bm{e}[k-1] + \thickbar{\bm{w}}[k-1])^T) \\
@@ -138,15 +138,20 @@ The last line follows because $\bm{e}$ and $\bm{w}$ are uncorrelated. This simpl
 \bm{P}^-[k] = \thickbar{\bm{A}}\bm{P}[k-1]\thickbar{\bm{A}}^T + \thickbar{\bm{Q}}_{\bm{w}}
 \end{equation}
 
-And the a posteriori mean-square-error becomes:
+And the a posteriori covariance matrix becomes:
 \begin{align*}
     \bm{P}[k] &= E(\bm{e}[k]\bm{e}[k]^T) \\
               &= E(\ ((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])^T) \\
-              &= (\bm{I} - \bm{L}[k]\bm{C})\bm{P}^-[k](\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T
 \end{align*}
+\begin{equation}
+              \bm{P}[k] = (\bm{I} - \bm{L}[k]\bm{C})\bm{P}^-[k](\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T
+\end{equation}
 Again, where the last line follows because $\bm{e}^-[k]$ and $\bmbar{v}$ are uncorrelated.
 
-Lastly, we can now find the update rule for $\bm{L}[k]$. It is found by minimizing the mean-square-error itself
+Lastly, we can now find the update rule for $\bm{L}[k]$. It is found by minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$ with respect to $\bm{L}[k]$, i.e $\frac{\partial tr(\bm{P}[k])}{\partial\bm{L}[k]} = \bm{0}$. The result:
+\begin{equation}
+a = b
+\end{equation}
 
 \subsection{Problem d}
 The Kalman filter gives access to an estimate of the bias to the rubber angle (\cref{fig:5d-estimated_rudder_bias}).  With current disturbance on, this bias became apparent when attempting to steer the ship (Part 3C \cref{fig:3b-psi_and_rudder_w_current}).  However, this bias can now be compensated for by adding the estimated bias as a feedforward term to the rudder input.  This results of using this term, with current disturbances on, is seen in \cref{fig:5d-psi_and_rudder}.  This term removes the steady state error seen previously.
