@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.98"
+    ComputedModelVersion    "1.99"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -54,8 +54,8 @@ Model {
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"56"
 	Extents			[1886.0, 1002.0]
-	ZoomFactor		[1.5]
-	Offset			[77.952380952381162, 42.095238095238173]
+	ZoomFactor		[1.75]
+	Offset			[83.104761904762427, 30.442857142857292]
       }
     }
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Nov 19 14:32:07 2016"
-  RTWModifiedTimeStamp	  401466348
-  ModelVersionFormat	  "1.%<AutoIncrement:98>"
+  LastModifiedDate	  "Sat Nov 19 16:44:39 2016"
+  RTWModifiedTimeStamp	  401474485
+  ModelVersionFormat	  "1.%<AutoIncrement:99>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "ship_p5"
-    Location		    [-8, 0, 1928, 1056]
+    Location		    [-8, -8, 1928, 1168]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -971,7 +971,7 @@ Model {
     TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "200"
+    ZoomFactor		    "175"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "235"
     Block {
@@ -1184,14 +1184,14 @@ Model {
 	    Type		    "checkbox"
 	    Name		    "waves"
 	    Prompt		    "waves"
-	    Value		    "on"
+	    Value		    "off"
 	  }
 	  PropName		  "Parameters"
 	}
       }
       System {
 	Name			"Cargo ship"
-	Location		[-8, 0, 1928, 1100]
+	Location		[-8, -8, 1928, 1168]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1269,7 +1269,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "Gain2"
 	  SID			  "8"
-	  Position		  [572, 90, 608, 125]
+	  Position		  [574, 90, 636, 140]
 	  ZOrder		  -7
 	  BlockRotation		  270
 	  BlockMirror		  on
@@ -1401,7 +1401,7 @@ Model {
 	  Name			  "Subsystem2"
 	  SID			  "17"
 	  Ports			  [1, 1]
-	  Position		  [455, 176, 490, 224]
+	  Position		  [445, 176, 480, 224]
 	  ZOrder		  -13
 	  BackgroundColor	  "cyan"
 	  ShowName		  off
@@ -1578,6 +1578,7 @@ Model {
 	  ZOrder		  7
 	  SrcBlock		  "Subsystem2"
 	  SrcPort		  1
+	  Points		  [9, 0; 0, -10]
 	  DstBlock		  "Sum1"
 	  DstPort		  2
 	}
@@ -1647,7 +1648,7 @@ Model {
 	  ZOrder		  18
 	  SrcBlock		  "Measurement noise"
 	  SrcPort		  1
-	  Points		  [55, 0]
+	  Points		  [70, 0]
 	  DstBlock		  "Gain2"
 	  DstPort		  1
 	}
@@ -1655,6 +1656,7 @@ Model {
 	  ZOrder		  19
 	  SrcBlock		  "Gain2"
 	  SrcPort		  1
+	  Points		  [0, 15; -15, 0]
 	  DstBlock		  "Sum2"
 	  DstPort		  1
 	}
@@ -1720,7 +1722,7 @@ Model {
 	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"150"
+	ZoomFactor		"175"
 	Block {
 	  BlockType		  Inport
 	  Name			  "rudder"
@@ -2360,7 +2362,7 @@ Model {
 	  }
 	  System {
 	    Name		    "Subsystem3"
-	    Location		    [419, 270, 973, 754]
+	    Location		    [-8, -8, 1928, 1168]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2984,7 +2986,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Task chooser"
-	Location		[-8, -8, 1928, 1048]
+	Location		[-8, -8, 1928, 1168]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200

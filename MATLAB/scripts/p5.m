@@ -62,27 +62,6 @@ P0_apriori = (pi/180)^2 * diag([1 0.013 pi^2 1 2.5e-4]); %initial a priori estim
 x0_apriori = zeros(5, 1);
 
 R_v = variance/T_s; %discrete time variance of measurement noise
-set_param('ship_p5/Cargo ship', 'noise', 'on');
-set_param('ship_p5/Cargo ship', 'current', 'off');
-set_param('ship_p5/Cargo ship', 'waves', 'off');
-
-sim('ship_p5.mdl');
-
-figure()
-plot(x_k.time, x_k.signals.values(:,3))
-hold on
-plot(compass);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Compass Angle (deg)')
-
-figure()
-plot(x_k.time, x_k.signals.values(:,5))
-hold on
-plot(rudder);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Rudder Angle (deg)')
 
 %% Part D
 task = 1;
@@ -93,22 +72,22 @@ set_param('ship_p5/Cargo ship', 'waves', 'off');
 
 sim('ship_p5.mdl');
 
-figure()
-plot(x_k.time, x_k.signals.values(:,3))
+fig1 = figure();
+%plot(x_k.time, x_k.signals.values(:,3))
 hold on
 plot(compass);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Compass Angle (deg)')
-grid on;
-
-figure()
-plot(x_k.time, x_k.signals.values(:,5))
-hold on
 plot(rudder);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Rudder Angle (deg)')
+legend('Measured $\psi$', '$\delta$');
+title('');
+ylabel('Angle (deg)');
+saveas(fig1,'../figures/5d-psi_and_rudder.fig');
+
+fig2 = figure();
+plot(x_k.time, x_k.signals.values(:,5));
+legend('Esimated rudder bias');
+title('');
+ylabel('Angle (deg)');
+saveas(fig2,'../figures/5d-estimated_rudder_bias.fig');
 
 %% Part E
 task1 = 1;
@@ -119,18 +98,30 @@ set_param('ship_p5/Cargo ship', 'waves', 'on');
 
 sim('ship_p5.mdl');
 
-figure()
-plot(x_k.time, x_k.signals.values(:,3))
+fig3 = figure();
 hold on
 plot(compass);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Compass Angle (deg)')
-
-figure()
-plot(x_k.time, x_k.signals.values(:,5))
-hold on
+plot(x_k.time, x_k.signals.values(:,3))
 plot(rudder);
-legend('Kalman Estimate', 'Measured')
-title('')
-ylabel('Rudder Angle (deg)')
+legend('Measured $\psi$', 'Estimated $\psi$', '$\delta$');
+title('');
+ylabel('Angle (deg)');
+saveas(fig3,'../figures/5e-psi_and_rudder.fig');
+
+fig4 = figure();
+plot(x_k.time, x_k.signals.values(:,5));
+legend('Esimated rudder bias');
+title('');
+ylabel('Angle (deg)');
+saveas(fig4,'../figures/5e-estimated_rudder_bias.fig');
+
+fig5 = figure();
+load('../wave.mat');
+hold on
+plot(psi_w(1,:), psi_w(2,:));
+plot(x_k.time, x_k.signals.values(:,2));
+legend('Actual wave influence', 'Estimated wave influence');
+title('');
+ylabel('Angle (deg)');
+xlim([0 500]);
+saveas(fig5,'../figures/5e-wave_influence.fig');
