@@ -2,7 +2,7 @@
 \subsection{Problem a}
 The MATLAB function \texttt{pwelch} calculates an estimate of the power spectral density PSD through
 dividing the signal $\psi_w$ into K overlapping blocks multiplied by a windowing function, and finding an
-estimate for the periodogram of each one.
+estimate for the periodogram \todo{What is this word?} of each one.
 
 \begin{figure}[h]
     \centering
@@ -47,9 +47,9 @@ $\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the
 frequency and the point where ???? $\psi_\omega$ correlates the most with itself.
 
 \subsection{Problem d}
-$\sigma^2 = 0.0015$
+$\sigma^2$, the peak value of = 0.0015$
 To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
-function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$
+function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$ (forklar nøyere?). $\lambda$ was found to be 0.0827.
 
 \begin{figure}[ht]
     \centering
