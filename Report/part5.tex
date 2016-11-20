@@ -67,7 +67,8 @@ The discretized output of the system is:
 \begin{equation*}
 \bm{y}[k] = \bm{Cx}[k] + \thickbar{\bm{v}}[k]
 \end{equation*}
-where $\thickbar{\bm{v}}[k]$ is the averaged measurement noise. We use this as opposed to the direct measurement noise at time $kT_s$ in order to avoid the exaggeration of sampling continuous time noise into discrete time.
+where $\thickbar{\bm{v}}[k]$ is the averaged measurement noise. We use this as opposed to the direct measurement noise
+at time $kT_s$ in order to avoid the exaggeration of sampling continuous time noise into discrete time.
 \begin{equation*}
 \thickbar{\bm{v}}[k] = \frac{1}{T_s}\int_{0}^{T_s}\bm{v}(kT-\alpha)d\alpha
 \end{equation*}
@@ -86,26 +87,30 @@ Meaning the discretized $\thickbar{\bm{R}}_{\bm{v}}$ is:
 \end{equation}
 
 \subsection{Problem b}
-The ship system is simulated with a constant rudder $\delta$-input of 0 and only measurement noise turned on. An estimate of the variance of 
-the measurement noise is found by putting the compass output into the MATLAB function {\texttt{var(A)}}. This function sums the squared distance of the values from the mean and divides this by the total number of values. The variance 
+The ship system is simulated with a constant rudder $\delta$-input of 0 and only measurement noise turned on. An
+estimate of the variance of 
+the measurement noise is found by putting the compass output into the MATLAB function {\texttt{var(A)}}. This function
+sums the squared distance of the values from the mean and divides this by the total number of values. The variance 
 is found to be 0.0020.
 
 \subsection{Problem c}
-\todo[inline]{Bit on zero-order holds, function blocks and memory}
-A discrete Kalman filter is to be designed. It is a discrete observer which performs optimal estimation through minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$, where
-$\bm{P}[k] \triangleq E(\bm{e}[k]\bm{e}[k]^T) = E((\bm{x}[k] - \hat{\bm{x}}[k])(\bm{x}[k] - \hat{\bm{x}}[k])^T)$ is the covariance matrix.
+A discrete Kalman filter is to be designed. It is a discrete observer which performs optimal estimation through
+minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$, where
+$\bm{P}[k] \triangleq E(\bm{e}[k]\bm{e}[k]^T) = E((\bm{x}[k] - \hat{\bm{x}}[k])(\bm{x}[k] - \hat{\bm{x}}[k])^T)$ is the
+covariance matrix of the error between the states and the estimated states.
 
-The estimate is generated in two phases, one guess for $\bm{x}[k]$ before $\bm{y}[k]$ is taken into account, called a priori (prior observation), and one guess after called a posteriori (post observation).
+The estimate is generated in two phases, one guess for $\bm{x}[k]$ before $\bm{y}[k]$ is taken into account, called a
+priori (prior observation), and one guess after called a posteriori (post observation).
 
 A priori estimate:
 \begin{equation}
-\hat{\bm{x}}^-[k] = \thickbar{\bm{A}}\hat{\bm{x}}[k-1]+\thickbar{\bm{B}}\bm{u}[k-1]
+\hat{\bm{x}}^-[k] = \thickbar{\bm{A}}\hat{\bm{x}}[k-1]+\thickbar{\bm{B}}\bm{u}[k-1] \label{a_priori_x}
 \end{equation}
 This is thus an a priori guess of the next $\hat{\bm{x}}[k]$ based on the previous a posteriori value of $\hat{\bm{x}}$ and the value of $\bm{u}$ at time k-1.
 
 A posteriori estimate:
 \begin{equation}
-\thickbar{\bm{x}}[k] = \hat{\bm{x}}^-[k] + \bm{L}[k](\bm{y}[k] - \bm{C}\hat{\bm{x}}^-[k])
+\thickbar{\bm{x}}[k] = \hat{\bm{x}}^-[k] + \bm{L}[k](\bm{y}[k] - \bm{C}\hat{\bm{x}}^-[k]) \label{a_posteriori_estimate}
 \end{equation}
 And this is the update of $\thickbar{\bm{x}}[k]$ based on the a priori value, the measured $\bm{y}[k]$, and the updated Kalman gain $\bm{L}[k]$.
 
@@ -135,26 +140,39 @@ The a priori covariance matrix becomes:
 \end{align*}
 The last line follows because $\bm{e}$ and $\bm{w}$ are uncorrelated. This simplifies to
 \begin{equation}
-\bm{P}^-[k] = \thickbar{\bm{A}}\bm{P}[k-1]\thickbar{\bm{A}}^T + \thickbar{\bm{Q}}_{\bm{w}}
+\bm{P}^-[k] = \thickbar{\bm{A}}\bm{P}[k-1]\thickbar{\bm{A}}^T + \thickbar{\bm{Q}}_{\bm{w}} \label{a_priori_covariance}
 \end{equation}
 
 And the a posteriori covariance matrix becomes:
 \begin{align*}
     \bm{P}[k] &= E(\bm{e}[k]\bm{e}[k]^T) \\
               &= E(\ ((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])((\bm{I} - \bm{L}[k]\bm{C})\bm{e}^-[k]+\bm{L}[k])^T) \\
+              &= (\bm{I} - \bm{L}[k]\bm{C})E(\bm{e}^-[k]\bm{e}^-[k]^T)(\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T
 \end{align*}
+Again, where the last line follows because $\bm{e}^-[k]$ and $\bmbar{v}$ are uncorrelated. The result:
 \begin{equation}
-              \bm{P}[k] = (\bm{I} - \bm{L}[k]\bm{C})\bm{P}^-[k](\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T
+              \bm{P}[k] = (\bm{I} - \bm{L}[k]\bm{C})\bm{P}^-[k](\bm{I} - \bm{L}[k]\bm{C})^T + \bm{L}[k]\bmbar{R}_{\bm{v}}\bm{L}[k]^T \label{a_posteriori_covariance}
 \end{equation}
-Again, where the last line follows because $\bm{e}^-[k]$ and $\bmbar{v}$ are uncorrelated.
 
-Lastly, we can now find the update rule for $\bm{L}[k]$. It is found by minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$ with respect to $\bm{L}[k]$, i.e $\frac{\partial tr(\bm{P}[k])}{\partial\bm{L}[k]} = \bm{0}$. The result:
+Lastly, we can now find the update rule for $\bm{L}[k]$. This is the Kalman gain, and it functions as a gain to $\bm{y}$ and the estimated $\bmhat{y} = \bm{C}\bmhat{x}$. It is selected in order to minimize the error between them. The Kalman gain $\bm{L}[k]$ is found by minimizing the mean-square-error $J[k] = tr(\bm{P}[k])$ with respect to $\bm{L}[k]$, i.e $\frac{\partial tr(\bm{P}[k])}{\partial\bm{L}[k]} = \bm{0}$. The result:
 \begin{equation}
-a = b
+\bm{L}[k] = \bm{P}^-[k]\bm{C}^T(\bm{CP}^-[k]\bm{C}^T+\bmbar{R}_{\bm{v}})^{-1} \label{kalman_update}
 \end{equation}
+
+And with all that, the Kalman filter can be designed. It performs the following calculations in the following order:
+\begin{enumerate}
+ \item $\bmhat{x}^-[0]$ and $\bm{P}^-[0]$ are initialized to $E(\bm{x}[0]) = \bm{m}_{\bm{x}_0}$ and $E(\bm{e}^-[0]\bm{e}^-[0]^T) = \mathcal{C}_{\bm{x}_0}$ respectively.
+ \item The update of the Kalman gain is performed using  \cref{kalman_update}.
+ \item The a posteriori estimate of the states is calculated using  \cref{a_posteriori_estimate}.
+ \item The error covariance matrix is updated using  \cref{a_posteriori_covariance}.
+ \item The a priori values of $\bmhat{x}^-$ and $\bm{P}^-$ are found for the next time step $k+1$, using \cref{a_priori_x} and \cref{a_priori_covariance}.
+ \item Start from step 2 again for the next time step $k+1$.
+\end{enumerate}
+
+This was implemented in simulink using zero-order hold blocks to discretize to system by holding the values for each time step, and memory blocks to hold the previous a priori values first initialized in step 1, and updated in step 5 above. The updates were implemented as function blocks, and the updates themselves were thus written as MATLAB functions. These can be seen in \cref{sec:Appendix A}.
 
 \subsection{Problem d}
-The Kalman filter gives access to an estimate of the bias to the rubber angle (\cref{fig:5d-estimated_rudder_bias}).  With current disturbance on, this bias became apparent when attempting to steer the ship (Part 3C \cref{fig:3b-psi_and_rudder_w_current}).  However, this bias can now be compensated for by adding the estimated bias as a feedforward term to the rudder input.  This results of using this term, with current disturbances on, is seen in \cref{fig:5d-psi_and_rudder}.  This term removes the steady state error seen previously.
+The Kalman filter gives access to an estimate of the bias to the rubber angle (\cref{fig:5d-estimated_rudder_bias}).  With current disturbance on, this bias became apparent when attempting to steer the ship (Part 3C \cref{fig:3b-psi_and_rudder_w_current}).  However, this bias can now be compensated for by adding the estimated bias as a feedforward term to the rudder input.  The results of using this term, with current disturbances on, is seen in \cref{fig:5d-psi_and_rudder}.  This term removes the steady state error seen previously.
 
 \begin{figure}[ht]
     \centering
@@ -171,3 +189,27 @@ The Kalman filter gives access to an estimate of the bias to the rubber angle (\
 \end{figure}
 
 \subsection{Problem e}
+The Kalman filter also gives access to a filtered estimate of the compass heading. This reduces the high frequency noise due to the waves on the compass heading. The results of simulating the ship using the filtered estimate for $\psi$ as the input to the controller is shown in \cref{fig:5e-psi_and_rudder}. The estimated compass angle does not have large oscillations compared to the measured compass angle. This leads to reasonable rudder inputs and roughly the same output as the same simulation with the measured compass angle used as feedback (Part3D \cref{fig:3b-psi_and_rudder_w_waves}). Using the inputs from the previous simulation would likely break the rudder or its motor, while these inputs are much more tame and smooth.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/5e-psi_and_rudder}
+    \caption{Compass angle, $\psi$, and rudder angle, $\delta$, along the y-axis, plotted against time in the x-axis. Using estimated compass angle as feedback to the controller. With current and wave disturbances and measurement noise}
+    \label{fig:5e-psi_and_rudder}
+\end{figure}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/5e-estimated_rudder_bias}
+    \caption{Kalman estimated rudder bias over time. With current and wave disturbances and measurement noise}
+    \label{fig:5e-estimated_rudder_bias}
+\end{figure}
+
+The wave noise estimate follows the pattern of the actual waves, but is quite damped in comparison.  This points to a likely error in the Kalman filter. This error is most likely a mismatched unit, for example degrees instead of radians, and could also explain why the estimated compass angle oscillates around the measured value slightly and the rudder bias oscillates before settling at 3 degrees.  These oscillations seem to be exacerbated by large changes in the measured value, meaning the the Kalman gains are too small, thereby over-prioritizing the current estimated state compared to the new measurements. This can be due to error(s) in the calculation or update of the P matrix, which in turn could be due to the measurement variance or the discretized A or Q matrices.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/5e-wave_influence}
+    \caption{Estimated wave noise versus actual wave noise.}
+    \label{fig:5e-wave_influence}
+\end{figure}

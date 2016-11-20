@@ -31,8 +31,35 @@ Rearrange terms to get the transfer function:
     \frac{\Psi_w(s)}{w_w(s)} &= \frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}
 \end{align*}
 
-To find the Power Spectral Density function of S \todo{Skriv inn hvor vi får den sammenhengen fra om vi har tid}
+The PSD is to be derived. To do this, we will assume that $\psi_w$ is ergodic and stationary. Respectively, that means the estimate of the statistic will approach the true value of the statistic given infinite samples, and the random process does not change its statistical properties over time. The autocorrelation of a random signal given stationarity is the following:
+\begin{equation*}
+R_{\siw}(\tau) = E(\siw(t)\siw(t-\tau))
+\end{equation*}
 
+The Power Spectral Density function (PSD) of a random signal is the Fourier transform of the autocorrelation of that signal.
+
+\begin{equation*}
+    S_{\siw}(j\omega) = \mathcal{F}[R_{\siw}(\tau)] = \int_{-\infty}^{\infty}R_{\siw}(\tau)e^{-j\omega\tau}d\tau
+\end{equation*}
+
+For a finite ergodic process with length T, we can find the PSD through the following relation\todo{ref lecture}:
+\begin{equation}
+    S_{X_T(t)}(j\omega) = \lim_{T\to\infty}E(\frac{1}{T}|\mathcal{F}(X_T(t))|^2) \label{finite_ergodic}
+\end{equation}
+
+It states that an estimate (the periodogram) of a random process will approach the true value of the statistic (the PSD) given infinite samples (over infinite time).
+
+In order to get the Fourier transform of $\siw(t)$ when we have $\siw(s)$, we simply insert for $s = j\omega$ due to the following relation:
+\begin{equation*}
+    \mathcal{F}(\siw(t))(j\omega) = \mathcal{L}(\siw(t))(s)\bigg{|}_{s=j\omega}
+\end{equation*}
+
+Since the Laplacian $\siw(s)$ is already a result of letting T approach infinity, \cref{finite_ergodic} reduces to the final relation:
+\begin{equation}
+    S_{\siw(t)}(j\omega) = E(|\mathcal{F}(\siw(t))|^2) \label{infinite_ergodic}
+\end{equation}
+
+We can now use \cref{infinite_ergodic} to calculate the PSD of $\siw$:
 \begin{align*}
     P_{\Psi_w}(\omega) &= E(\left|\Psi_w(s)\right|^2)|_{s=j\omega} \\
     &= E\left(\left|\frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}w_w(s)\right|^2\right)|_{s=j\omega} \\
