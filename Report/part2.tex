@@ -1,8 +1,8 @@
 \section{Identification of wave spectrum model}
 \subsection{Problem a}
-The MATLAB function \texttt{pwelch} calculates an estimate of the power spectral density PSD through
-dividing the signal $\psi_w$ into K overlapping blocks multiplied by a windowing function, and finding an
-estimate for the periodogram \todo{What is this word?} of each one.
+The Power Spectral Density function is the autocorrelation function expressed in the frequency domain. It is formally defined as the Fourier Transform of the autocorrelation function.  The MATLAB function \texttt{pwelch} calculates an estimate of the power spectral density PSD through
+dividing the signal into K overlapping blocks multiplied by a windowing function, and finding an
+estimate for the periodogram of each one.  The result of sending the waves disturbance, $\psi_w$, through \texttt{pwelch} is shown in \cref{fig:2a-welchPSDestimate}.
 
 \begin{figure}[h]
     \centering
@@ -23,15 +23,15 @@ the transfer function between $w_w$ and $\psi_w$ can be found.
 
 Replacing $\xi_w$ with $\int\psi_w$ and taking the Laplace transform leads to:
 \begin{align*}
-    \Psi_w(s)s &= -\omega^2_0\Psi_w(s)\frac{1}{s} - 2\lambda\omega_0\Psi_w(s) + K_wW_w(s)
+    \Psi_w(s)s &= -\omega^2_0\Psi_w(s)\frac{1}{s} - 2\lambda\omega_0\Psi_w(s) + K_ww_w(s)
 \end{align*}
 
 Rearrange terms to get the transfer function:
 \begin{align*}
-    \frac{\Psi_w(s)}{W_w(s)} &= \frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}
+    \frac{\Psi_w(s)}{w_w(s)} &= \frac{K_ws}{s^2 + 2\lambda\omega_0s + \omega^2_0}
 \end{align*}
 
-To find the Power Spectral Density function of S
+To find the Power Spectral Density function of S \todo{Skriv inn hvor vi får den sammenhengen fra om vi har tid}
 
 \begin{align*}
     P_{\Psi_w}(\omega) &= E(\left|\Psi_w(s)\right|^2)|_{s=j\omega} \\
@@ -42,14 +42,14 @@ To find the Power Spectral Density function of S
 \end{align*}
 
 \subsection{Problem c}
-
-$\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the x-axis. This is the resonant 
-frequency and the point where ???? $\psi_\omega$ correlates the most with itself.
+$\omega_0$ is the resonant 
+frequency and the point where $\psi_\omega$ correlates the most with itself.  This is the point on the x-axis of \cref{fig:2a-welchPSDestimate} where the y value is largest.
+$\omega_0 = 0.7823$, found through finding where the max of pxx$/2\pi$ is in the x-axis.  \todo{fill out better.}
 
 \subsection{Problem d}
-$\sigma^2$, the peak value of = 0.0015$
-To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
-function between the target data $S_{\psi_\omega}(\omega)$, and the fitted function $P_{\psi_\omega}(\lambda, \omega)$ (forklar nøyere?). $\lambda$ was found to be 0.0827.
+$\sigma^2$, the peak value of $P_{\psi_\omega}(\omega)$ is equal to 0.0015.
+By setting $K_w = 2\lambda\omega_0\sigma$, the only parameter unknown in $P_{\psi_\omega}(\lambda, \omega)$ is $\lambda$. To fit $\lambda$, the MATLAB function \texttt{lsqcurvefit} was used. It finds $\lambda$ by minimizing an error
+function between the target data $S_{\psi_\omega}(\omega)$, and the analytical function $P_{\psi_\omega}(\lambda, \omega)$ \todo{(forklar nøyere?)}. $\lambda$ was found to be 0.0827. The difference between the estimated and analytical PSD functions is shown (\cref{fig:2d-fitted_theoretical_PSD_vs_estimated_PSD}) to be very small.
 
 \begin{figure}[ht]
     \centering
