@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.99"
+    ComputedModelVersion    "1.100"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +29,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1176.0]
+      Location		      [-8.0, 0.0, 1936.0, 1100.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,7 +53,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"56"
-	Extents			[1886.0, 1002.0]
+	Extents			[1886.0, 926.0]
 	ZoomFactor		[1.75]
 	Offset			[83.104761904762427, 30.442857142857292]
       }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "sindrhan"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Nov 19 16:44:39 2016"
-  RTWModifiedTimeStamp	  401474485
-  ModelVersionFormat	  "1.%<AutoIncrement:99>"
+  LastModifiedDate	  "Sun Nov 20 10:13:46 2016"
+  RTWModifiedTimeStamp	  401537445
+  ModelVersionFormat	  "1.%<AutoIncrement:100>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "ship_p5"
-    Location		    [-8, -8, 1928, 1168]
+    Location		    [-8, 0, 1928, 1100]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -987,163 +987,6 @@ Model {
       Save2DSignal	      "3-D array (concatenate along third dimension)"
       FixptAsFi		      on
       SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Autopilot"
-      SID		      "45"
-      Ports		      [2, 1]
-      Position		      [220, 295, 315, 355]
-      ZOrder		      12
-      RequestExecContextInheritance off
-      System {
-	Name			"Autopilot"
-	Location		[-8, -8, 1928, 1048]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Psi(deg)"
-	  SID			  "47"
-	  Position		  [20, 253, 50, 267]
-	  ZOrder		  12
-	  NamePlacement		  "alternate"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Psi_r(deg)"
-	  SID			  "46"
-	  Position		  [20, 168, 50, 182]
-	  ZOrder		  11
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "D2R"
-	  SID			  "49"
-	  Position		  [140, 157, 200, 193]
-	  ZOrder		  14
-	  Gain			  "pi/180"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "Gain"
-	  SID			  "38"
-	  Position		  [220, 160, 280, 190]
-	  ZOrder		  8
-	  Gain			  "K_pd"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "R2D"
-	  SID			  "50"
-	  Position		  [490, 157, 550, 193]
-	  ZOrder		  15
-	  Gain			  "180/pi"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "40"
-	  Ports			  [2, 1]
-	  Position		  [95, 165, 115, 185]
-	  ZOrder		  10
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|+-"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  TransferFcn
-	  Name			  "Transfer Fcn"
-	  SID			  "37"
-	  Position		  [315, 137, 465, 213]
-	  ZOrder		  7
-	  Numerator		  "[T 1]"
-	  Denominator		  "[T*alpha 1]"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "delta(deg)"
-	  SID			  "48"
-	  Position		  [660, 168, 690, 182]
-	  ZOrder		  13
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  ZOrder		  28
-	  SrcBlock		  "Psi_r(deg)"
-	  SrcPort		  1
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  29
-	  SrcBlock		  "Psi(deg)"
-	  SrcPort		  1
-	  Points		  [50, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  18
-	  SrcBlock		  "Gain"
-	  SrcPort		  1
-	  DstBlock		  "Transfer Fcn"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  31
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "D2R"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  32
-	  SrcBlock		  "D2R"
-	  SrcPort		  1
-	  DstBlock		  "Gain"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  35
-	  SrcBlock		  "Transfer Fcn"
-	  SrcPort		  1
-	  DstBlock		  "R2D"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  39
-	  SrcBlock		  "R2D"
-	  SrcPort		  1
-	  DstBlock		  "delta(deg)"
-	  DstPort		  1
-	}
-      }
     }
     Block {
       BlockType		      SubSystem
@@ -1710,7 +1553,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Kalman filter"
-	Location		[-8, -8, 1928, 1168]
+	Location		[-8, 0, 1928, 1100]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2951,6 +2794,163 @@ Model {
       }
     }
     Block {
+      BlockType		      SubSystem
+      Name		      "PD controller"
+      SID		      "45"
+      Ports		      [2, 1]
+      Position		      [220, 295, 315, 355]
+      ZOrder		      12
+      RequestExecContextInheritance off
+      System {
+	Name			"PD controller"
+	Location		[-8, 0, 1928, 1100]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Psi(deg)"
+	  SID			  "47"
+	  Position		  [20, 253, 50, 267]
+	  ZOrder		  12
+	  NamePlacement		  "alternate"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Psi_r(deg)"
+	  SID			  "46"
+	  Position		  [20, 168, 50, 182]
+	  ZOrder		  11
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "D2R"
+	  SID			  "49"
+	  Position		  [140, 157, 200, 193]
+	  ZOrder		  14
+	  Gain			  "pi/180"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain"
+	  SID			  "38"
+	  Position		  [220, 160, 280, 190]
+	  ZOrder		  8
+	  Gain			  "K_pd"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "R2D"
+	  SID			  "50"
+	  Position		  [490, 157, 550, 193]
+	  ZOrder		  15
+	  Gain			  "180/pi"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  SID			  "40"
+	  Ports			  [2, 1]
+	  Position		  [95, 165, 115, 185]
+	  ZOrder		  10
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "Transfer Fcn"
+	  SID			  "37"
+	  Position		  [315, 137, 465, 213]
+	  ZOrder		  7
+	  Numerator		  "[T 1]"
+	  Denominator		  "[T*alpha 1]"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "delta(deg)"
+	  SID			  "48"
+	  Position		  [660, 168, 690, 182]
+	  ZOrder		  13
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  ZOrder		  28
+	  SrcBlock		  "Psi_r(deg)"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  29
+	  SrcBlock		  "Psi(deg)"
+	  SrcPort		  1
+	  Points		  [50, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  18
+	  SrcBlock		  "Gain"
+	  SrcPort		  1
+	  DstBlock		  "Transfer Fcn"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  31
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "D2R"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  32
+	  SrcBlock		  "D2R"
+	  SrcPort		  1
+	  DstBlock		  "Gain"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  35
+	  SrcBlock		  "Transfer Fcn"
+	  SrcPort		  1
+	  DstBlock		  "R2D"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  39
+	  SrcBlock		  "R2D"
+	  SrcPort		  1
+	  DstBlock		  "delta(deg)"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
       BlockType		      Saturate
       Name		      "Rudder saturation"
       SID		      "52"
@@ -2986,7 +2986,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Task chooser"
-	Location		[-8, -8, 1928, 1168]
+	Location		[-8, 0, 1928, 1100]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3202,7 +3202,7 @@ Model {
       ZOrder		      37
       SrcBlock		      "reference"
       SrcPort		      1
-      DstBlock		      "Autopilot"
+      DstBlock		      "PD controller"
       DstPort		      2
     }
     Line {
@@ -3282,7 +3282,7 @@ Model {
     }
     Line {
       ZOrder		      164
-      SrcBlock		      "Autopilot"
+      SrcBlock		      "PD controller"
       SrcPort		      1
       DstBlock		      "Sum"
       DstPort		      2
@@ -3292,7 +3292,7 @@ Model {
       SrcBlock		      "Task chooser"
       SrcPort		      1
       Points		      [-190, 0; 0, 145]
-      DstBlock		      "Autopilot"
+      DstBlock		      "PD controller"
       DstPort		      1
     }
     Line {
@@ -3343,10 +3343,7 @@ Stateflow {
     firstTransition	    10
     firstJunction	    9
     viewObj		    2
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    8
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -3692,10 +3689,7 @@ Stateflow {
     firstTransition	    29
     firstJunction	    28
     viewObj		    21
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    8
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
