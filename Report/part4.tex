@@ -1,5 +1,5 @@
 \section{Observability}
-\subsection{Problem a}
+\subsection{State space matrices}
 The system described in equations 13a-13f \cite{assignment} can be described in state space form 
 with state \textbf{x} = $[\xi_w\: \psi_w\: \psi\; r\: b]^T$, input $u = \delta$, 
 disturbances \textbf{w} = $[w_w\: w_b]^T$ and output $y$:
@@ -48,7 +48,7 @@ with the matrices:
     \end{aligned}
 \end{equation}
 
-\subsection{Problem b}
+\subsection{Without disturbances}
 For Part B-E, the observability matrix is used to study observability. It is defined as:
 
 \begin{equation}
@@ -98,7 +98,7 @@ and the observability matrix becomes:
 
 The rank of this matrix is 2, which is full rank, therefore the system without disturbances is observable.
 
-\subsection{Problem c}
+\subsection{With current}
 When examining observability with only disturbances from the current, the states affected by wave disturbances are disregarded. The remaining states are $\psi$, r and b. With these states, the state space matrices become:
 
 \begin{equation}
@@ -135,7 +135,7 @@ and the observability matrix becomes:
 
 The rank of this matrix is 3, which is full rank, therefore the system with only current disturbances is observable.
 
-\subsection{Problem d}
+\subsection{With waves}
 When examining observability with only disturbances from the waves, the states affected by wave disturbances are disregarded. The remaining states are $\xi_w$, $\psi_w$, $\psi$ and r. With these states, the state space matrices become:
 
 \begin{equation}
@@ -176,8 +176,8 @@ and the observability matrix becomes:
 \end{equation}
 
 The rank of this matrix is 4, which is full rank, therefore the system with only wave disturbances is observable.
-\subsection{Problem e}
-The system with both disturbances from the current and from the waves has the state space form described in Part A \cref{eq:State Space With Disturbances}.
+\subsection{With current and waves}
+The system with both disturbances from the current and from the waves has the state space form described in Part 4.1 \cref{eq:State Space With Disturbances}.
 
 The observability matrix for this system is:
 
